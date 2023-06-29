@@ -1,0 +1,144 @@
+<!--
+文件名称：setrepair.html
+当前版本：V1.0
+作者：灰灰吃不饱项目组
+完成日期：2023年6月30日
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>igua Student Dormitory Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script language="JavaScript" src="/js/jquery.js"></script>
+    <script src="/js/cloud.js" type="text/javascript"></script>
+    <script language="javascript">
+
+            function clear(){
+                var dorm= document.getElementById("dorm");
+                dorm.value='';
+                var dormitorys= document.getElementById("dormitorys");
+                dormitorys.value='';
+                var tel= document.getElementById("tel");
+                tel.value='';
+            }
+        function tianjia(){
+            $.ajax({
+                url:"http://localhost:8080/student/tianxierepairs",
+                type:"POST",
+                async:false,
+                dataType:"json",
+                data:{
+                    "dorm":$("#dorm").val(),
+                    "dormitorys":$("#dormitorys").val(),
+                    "tel":$("#tel").val(),
+                },
+                success: function(data){
+                    //需要解析成字符串格式
+                    //var re=JSON.stringify(result);
+                    if(data.code=="0"){
+                        alert("上报成功")
+                        clear()
+                    }else if(data.code=="1"){
+                        alert("已经填写过，请不要重复填写")
+                    }else {
+                        alert("网络错误")
+                    }
+
+                }
+
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">igua Student Dormitory Management System</a></h1>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <li><a href="/student/outlogin">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1><img src="/images/应用菜单_application-menu.png">菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                 							<ul class="sub-menu">
+								<li>
+									<a href="/student/getuser"><img src="/images/头像_avatar.png"><i class="icon-font">&#xe008;</i>个人信息查询</a>
+								</li>
+								<li>
+									<a href="/student/getclean"><img src="/images/清除_clear.png"><i class="icon-font">&#xe005;</i>卫生情况</a>
+								</li>
+								<li>
+									<a href="/student/setrepairs"><img src="/images/工具_tool.png"><i class="icon-font">&#xe006;</i>填写报修信息</a>
+								</li>
+								<li>
+									<a href="/student/getrepairs"><img src="/images/查找_find.png"><i class="icon-font">&#xe004;</i>查询报修信息</a>
+								</li>
+							</ul>
+                </li>
+                 
+            </ul>
+        </div>
+    </div>
+    <!--/sidebar-->
+     <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i><a href="#">添加报修信息界面</a></div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="" method="post" id="myform" name="myform" >
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                            
+                            <tr>
+                                <th>宿舍号</th>
+                                <td>
+                                    <input class="common-text required" id="dorm" name="username" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <th>损坏物品</th>
+                                <td>
+                                    <input class="common-text required" id="dormitorys" name="password" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <th>联系电话</th>
+                                <td>
+                                    <input class="common-text required" id="tel" name="repassword" size="50" value="" type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <input class="btn btn-primary btn6 mr10" value="提交" type="button" onclick="tianjia()">
+                                    <input class="btn btn6" value="清空" type="button" onclick="clear()">
+                                </td>
+                            </tr>
+                        </tbody></table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!--
+文件名称：userinfo.html
+当前版本：V1.0
+作者：灰灰吃不饱项目组
+完成日期：2023年6月30日
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>igua Student Dormitory Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">igua Student Dormitory Management System</a></h1>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <li><a href="/student/outlogin">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1><img src="/images/应用菜单_application-menu.png">菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                   							<ul class="sub-menu">
+								<li>
+									<a href="/student/getuser"><img src="/images/头像_avatar.png"><i class="icon-font">&#xe008;</i>个人信息查询</a>
+								</li>
+								<li>
+									<a href="/student/getclean"><img src="/images/清除_clear.png"><i class="icon-font">&#xe005;</i>卫生情况</a>
+								</li>
+								<li>
+									<a href="/student/setrepairs"><img src="/images/工具_tool.png"><i class="icon-font">&#xe006;</i>填写报修信息</a>
+								</li>
+								<li>
+									<a href="/student/getrepairs"><img src="/images/查找_find.png"><i class="icon-font">&#xe004;</i>查询报修信息</a>
+								</li>
+							</ul>
+                </li>
+                 
+            </ul>
+        </div>
+    </div>
+    <!--/sidebar-->
+     <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i><a href="#">查询个人信息界面</a></div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                 <table class="result-tab" width="100%">
+                        <tr>
+                            <th>id</th>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>宿舍号</th>
+                            <th>年龄</th>
+                            <th>电话</th>
+                            <th>入学时间</th>
+                            <th>毕业时间</th>
+                           
+                        </tr>
+
+                        <tr th:each="student : ${list}">
+                            <td th:text="${student.id}"></td>
+                            <td th:text="${student.studentno}"></td>
+                            <td th:text="${student.name}"></td>
+                        	<td th:text="${student.dorm}"></td>
+                        	<td th:text="${student.age}"></td>
+                        	<td th:text="${student.tel}"></td>
+                            <td th:text="${student.admission}"></td>
+                        	<td th:text="${student.graduation}"></td>
+                        	
+                        </tr>
+                    </table>
+            </div>
+        </div>
+
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>

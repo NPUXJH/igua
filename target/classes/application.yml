@@ -1,0 +1,12 @@
+# DataSource Config
+spring:
+  datasource:
+    username: root
+    password: 20010605
+    url: jdbc:mysql://database-1.cla0am0pc48b.ap-northeast-1.rds.amazonaws.com:3306/hotel
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /*
+      suffix: .html
+

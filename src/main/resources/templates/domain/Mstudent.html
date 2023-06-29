@@ -1,0 +1,290 @@
+<!--
+文件名称：Mstudent.html
+当前版本：V1.0
+作者：灰灰吃不饱项目组
+完成日期：2023年6月30日
+-->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>igua Student Dormitory Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/modal.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>-->
+
+    <script src="/js/jquery.js"></script>
+    <!--<script src="/bootstrap/js/bootstrap.js"></script>-->
+    <!--val($(this).attr("uri"));-->
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">igua Student Dormitory Management System</a></h1>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <li><a href="/student/outlogin">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1><img src="/images/应用菜单_application-menu.png">菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                    <ul class="sub-menu">
+                        <li><a href="/housemaster/todomain"><img src="/images/头像_avatar.png"><i class="icon-font">&#xe005;</i>用户管理</a></li>
+                        <li><a href="/housemaster/toclean"><img src="/images/清除_clear.png"><i class="icon-font">&#xe005;</i>卫生管理</a></li>
+                        <li><a href="/housemaster/getrepairs"><img src="/images/工具_tool.png"><i class="icon-font">&#xe005;</i>维修管理</a></li>
+                    </ul>
+                </li>
+                 <!--<li>-->
+                    <!--<a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>-->
+                    <!--<ul class="sub-menu">-->
+                        <!--<li><a href="#"><i class="icon-font">&#xe017;</i>系统设置</a></li>-->
+                        <!--<li><a href="#"><i class="icon-font">&#xe037;</i>清理缓存</a></li>-->
+                        <!--<li><a href="#"><i class="icon-font">&#xe046;</i>数据备份</a></li>-->
+                        <!--<li><a href="#"><i class="icon-font">&#xe045;</i>数据还原</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><a href="#">宿舍管理员管理界面</a></div>
+        </div>
+
+        <div class="result-wrap">
+        	
+            <form name="myform" id="myform" method="post">
+                <div class="result-title">
+                    <div class="result-list">
+                        <button type="button" class="btn btn-success add">增加用户</button>
+                    </div>
+                </div>
+                <div class="result-content">
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <th>id</th>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>宿舍号</th>
+                            <th>年龄</th>
+                            <th>电话</th>
+                            <th>入学时间</th>
+                            <th>so long</th>
+                            <th>操作</th>
+                        </tr>
+
+                        <tr th:each="user : ${list}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.studentno}"></td>
+                            <td th:text="${user.name}"></td>
+                        	<td th:text="${user.dorm}"></td>
+                        	<td th:text="${user.age}"></td>
+                        	<td th:text="${user.tel}"></td>
+                            <td th:text="${user.admission}"></td>
+                        	<td th:text="${user.graduation}"></td>
+                        	<td>
+                        		<button type="button" class="btn btn-danger edit" th:attr="id=${user.id}" >更新</button>
+                        		<button type="button"  class="btn btn-primary delete" th:attr="id=${user.id}">删除</button>
+                        	</td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--增加模态框-->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <header class="modal-header">
+            <h4>增加用户</h4>
+            <span class="close cancel">×</span>
+        </header>
+        <div class="modal-body">
+            <label>姓名：</label>
+            <input id="name1" name="name"  type="text"/>
+            <br>
+            <label>学号：</label>
+            <input id="studentno1" name="studentno" type="text">
+            <br>
+            <label>密码：</label>
+            <input id="pass1" name="pass" type="password">
+            <br>
+            <label>宿舍：</label>
+            <input id="dorm1" name="dorm" type="text">
+            <br>
+            <label>电话：</label>
+            <input id="tel1" name="tel" type="text">
+            <br>
+            <label>年龄：</label>
+            <input id="age1" name="age" type="text">
+            <br>
+            <br>
+            <label>地址：</label>
+            <input id="address1" name="address" type="text">
+            <br>
+        </div>
+        <footer class="modal-footer">
+            <button class="cancel" id="cancel">取消</button>
+            <button class="sure">确定</button>
+        </footer>
+    </div>
+</div>
+<!--修改模态框-->
+<div id="editmodal" class="modal">
+    <div class="modal-content">
+        <header class="modal-header">
+            <h4>修改用户</h4>
+            <span class="close cancel">×</span>
+        </header>
+        <div class="modal-body">
+            <form id="menuinfo">
+                <input id="id" name="id" type="hidden">
+                <label>姓名：</label>
+                <input id="name" name="name"  type="text"/>
+                <br>
+                <label>学号：</label>
+                <input id="studentno" name="studentno" type="text">
+                <br>
+                <label>密码：</label>
+                <input id="pass" name="pass" type="password">
+                <br>
+                <label>宿舍：</label>
+                <input id="dorm" name="dorm" type="text">
+                <br>
+                <label>电话：</label>
+                <input id="tel" name="tel" type="text">
+                <br>
+                <label>年龄：</label>
+                <input id="age" name="age" type="text">
+                <br>
+            </form>
+        </div>
+        <footer class="modal-footer">
+            <button class="cancel">取消</button>
+            <button id="sureedit">确定</button>
+        </footer>
+    </div>
+</div>
+<script>
+    $(function () {
+        //删除按钮
+        $(".delete").click(function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "http://localhost:8080/housemaster/deletestudent",
+                type: "POST",
+                data: {
+                    "id" : id
+                },
+                success: function (data) {
+                    if (data.code=="0"){
+                        alert("删除成功！");
+                        window.location.href="http://localhost:8080/housemaster/todomain"
+                    }
+                }
+            });
+            return;
+        });
+        //增加按钮
+        $(".add").click(function () {
+            var modal = document.getElementById('modal');
+            modal.style.display = "block";
+        });
+        //取消按钮或者x
+        $(".cancel").click(function () {
+            var modal = document.getElementById('modal');
+            modal.style.display = "none";
+            var edut = document.getElementById('editmodal');
+            edut.style.display = "none";
+        });
+        //发送json数据增加数据
+        $(".sure").click(function () {
+            $.ajax({
+                url: "http://localhost:8080/housemaster/addstudent",
+                type: "POST",
+                data: {
+                    "name" : $("#name1").val(),
+                    "pass" : $("#pass1").val(),
+                    "tel" : $("#tel1").val(),
+                    "studentno" : $("#studentno1").val(),
+                    "age" : $("#age1").val(),
+                    "dorm" : $("#dorm1").val(),
+                },
+                success: function (data) {
+                    if (data.code=="0"){
+                        alert("添加成功！");
+                        window.location.href="http://localhost:8080/housemaster/todomain"
+                    }
+                }
+            });
+            return;
+        });
+
+        //修改按钮
+        $(".edit").click(function () {
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "http://localhost:8080/housemaster/byid",
+                type: "POST",
+                data: {
+                    "id" : id
+                },
+                success: function (data) {
+                    if (data.code=="0"){
+                        var master = data.data;
+                        $("#id").val(master.id);
+                        $("#name").val(master.name);
+                        $("#tel").val(master.tel);
+                        $("#pass").val(master.pass);
+                        $("#dorm").val(master.dorm);
+                        $("#studentno").val(master.studentno);
+                        $("#age").val(master.age);
+                    }
+                }
+            });
+            var modal = document.getElementById('editmodal');
+            modal.style.display = "block";
+        });
+        //发送json数据修改数据
+        $("#sureedit").click(function () {
+            var formObject = {};
+            var formArray =$("#menuinfo").serializeArray();
+            $.each(formArray,function(i,item){
+                formObject[item.name] = item.value;
+            });
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/housemaster/updatestudent",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(formObject),
+                dataType: "json",
+                success: function(msg){
+                    if (msg.code == "0"){
+                        //根据数据生成树形图
+                        alert("修改成功");
+                        window.location.href="http://localhost:8080/housemaster/todomain"
+
+                    } else {
+
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
